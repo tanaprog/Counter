@@ -1,19 +1,31 @@
 const decrement = document.getElementById('decrement')
 const increment = document.getElementById('increment')
 const reset = document.getElementById('reset')
+const counter = document.getElementById('counter')
 
-let number = document.getElementById('number')
-
-increment.addEventListener('click', function () {
-    number.innerHTML = Number(number.textContent) + 1
-})
-
-decrement.addEventListener('click', function () {
-    if (number.textContent > 0) {
-        number.innerHTML = Number(number.textContent) - 1
+function addValue() {
+    counter.innerHTML = Number(counter.textContent) + 1
+    if (counter.textContent > 0) {
+        decrement.disabled = false
     }
-})
+}
+
+increment.addEventListener('click', addValue)
+
+function disabledValue() {
+    if (counter.textContent <= 0) {
+        decrement.disabled = true
+    }
+}
+
+function removeValue() {
+    counter.innerHTML = Number(counter.textContent) - 1
+    disabledValue()
+}
+
+decrement.addEventListener('click', removeValue)
 
 reset.addEventListener('click', function () {
-    number.innerHTML = 0
+    counter.innerHTML = 0
+    disabledValue()
 })
